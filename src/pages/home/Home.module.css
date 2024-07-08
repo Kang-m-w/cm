@@ -1,0 +1,142 @@
+.inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 0.5fr 280px 100px auto;
+}
+
+.bannerWrap {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  margin: auto;
+}
+
+.banner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.navwrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.navItem {
+  width: 15%;
+  height: 60%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.navItem:not(:last-child)::after {
+  content: "";
+  width: 0.1rem;
+  height: 20px;
+  position: absolute;
+  background-color: rgb(181, 181, 181);
+  right: -50%;
+}
+
+.navItem svg {
+  font-size: 27px;
+  padding: 10px;
+  color: #FDC964;
+}
+
+.navItem span {
+  font-size: 15px;
+  font-weight: 800;
+  color: rgb(138, 138, 138);
+}
+
+.list {
+  width: 100%;
+  height: 100%;
+  padding: 20px 0 0 0;
+  display: grid;
+  grid-template-rows: 0px auto;
+}
+
+.header {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+#rec {
+  font-size: 18px;
+  font-weight: 800;
+  color: rgb(87, 87, 87);
+  position: relative;
+  margin-left: 10px;
+}
+
+#rec::before {
+  content: "";
+  width: 5px;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #FEA063;
+  display: block;
+  position: absolute;
+  left: -10px;
+}
+
+#lot {
+  font-size: 13px;
+  color: rgb(121, 121, 121);
+  margin-right: 25px;
+}
+
+/*mobile design*/
+
+@media screen and (max-width: 575px) {
+  .inner {
+    grid-template-rows: 50px 230px 70px auto;
+  }
+
+  .banner {
+    padding: 10px 0 0 0;
+  }
+
+  .list {
+    grid-template-rows: 50px auto;
+  }
+
+  .navwrap {
+    justify-content: space-around;
+  }
+
+  .navItem {
+    width: 25%;
+    height: 105%;
+    border-radius: 20px; 
+  }
+
+  .navItem svg {
+    font-size: 24px;
+    padding: 10px;
+    color: #FDC964;
+  }
+
+  .navItem span {
+    font-size: 12px;
+  }
+
+  .navItem:not(:last-child)::after {
+    right: -15px;
+    height: 10px;
+  }
+}

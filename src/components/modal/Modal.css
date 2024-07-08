@@ -1,0 +1,30 @@
+.isClose {
+  display: none !important;
+}
+
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  background-color: #00000057;
+  display: grid;
+  place-items: center;
+  z-index: 1;
+  left: 0;
+  top: 0;
+}
+
+.modal {
+  z-index: 1000;
+  background-color: #fff;
+}
+
+/*mobile design*/
+
+@media screen and (max-width: 575px) {
+  .isRes {
+    width: 100vw !important;
+    height: 100vh !important;
+    border-radius: 0px !important;
+  }
+}

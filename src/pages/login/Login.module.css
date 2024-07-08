@@ -1,0 +1,98 @@
+.inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 3fr 7fr;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.header {
+  width: 100%;
+  height: 100%;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body > div {
+  margin: 5px 0;
+}
+
+.id, .pw {
+  width: 80%;
+  height: 55px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+}
+
+.pw {
+  display: flex;
+}
+
+.eye {
+  width: 20%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: rgb(87, 87, 87);
+  font-size: 21px;
+}
+
+.id>input {
+  width: 100%;
+  height: 100%;
+}
+  
+.pw>input {
+  width: 80%;
+  height: 100%;
+}
+
+#input {
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  color: rgb(88, 88, 88);
+  border-radius: 8px;
+}
+
+.btn {
+  width: 80%;
+  height: 50px;
+  margin-top: 20px !important;
+}
+
+/* Mobile design */
+
+@media screen and (max-width: 575px) {
+  .inner {
+    grid-template-rows: 2fr 8fr;
+  }
+
+  .id, .pw {
+    width: 80%;
+    height: 55px;
+  }
+  
+  #input {
+    font-size: 17px;
+  }
+
+  .btn {
+    width: 80%;
+    height: 60px;
+  }
+}

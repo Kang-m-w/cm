@@ -1,0 +1,85 @@
+.inner {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 80px 150px auto;
+  overflow: auto;
+}
+
+.search {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  grid-template-rows: 6fr 4fr;
+}
+
+.bar {
+  width: 60%;
+  height: 50px;
+  display: grid;
+  grid-template-columns: auto 60px;
+  border-radius: 10px;
+}
+
+.bar input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 5px 5px 5px 20px;
+  font-size: 17px;
+  border-radius: 20px 0 0 20px;
+  background-color: rgb(228, 228, 228);
+  color: rgb(103, 103, 103);
+}
+
+.searchIcon {
+  background-color: rgb(228, 228, 228);
+  color: rgb(103, 103, 103);
+  border-radius: 0 20px 20px 0;
+  display: grid;
+  place-items: center;
+  font-size: 21px;
+}
+
+.nav {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.navWrap {
+  width: 70%;
+  display: grid;
+  grid-template-columns: auto 3px auto 3px auto;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(143, 143, 143);
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.line > div {
+  width: 100%;
+  height: 15px;
+  background-color: rgb(220, 220, 220);
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 575px) {
+  .bar {
+    width: 80%;
+    height: 45px;
+  } 
+}

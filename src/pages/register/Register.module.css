@@ -1,0 +1,197 @@
+.inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: grid;
+  grid-template-rows: 2fr 8fr;
+  overflow: auto;
+}
+
+.inner::-webkit-scrollbar {
+  display: none;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 23px;
+  cursor: pointer;
+}
+
+.header {
+  margin: 30px 0;
+}
+
+.body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.body>div {
+  margin: 5px 0px;
+}
+
+.placeholder {
+  width: 75%;
+}
+
+.placeholder:not(:first-child) {
+  margin-top: 20px !important;
+}
+
+.input {
+  width: 100%;
+  height: 55px;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+}
+
+.inputWrap {
+  width: 80%;
+}
+
+.input>input {
+  width: 100%;
+  height: 100%;
+}
+
+.inputName {
+  width: 80%;
+}
+
+.inputId {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.duplication {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.duplication>button {
+  padding: 10px 10px;
+  font-size: 12px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid rgb(203, 203, 203);
+  background-color: #FEA063;
+  color: white;
+}
+
+.pw {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+}
+
+.pw:not(:first-child) {
+  margin-top: 10px;
+}
+
+.eye {
+  display: grid;
+  place-items: center;
+  color: rgb(87, 87, 87);
+  font-size: 21px;
+}
+
+.selector {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  border: none;
+}
+
+.majorSelect {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding: 5px 3px;
+}
+
+.birth {
+  display: grid;
+  grid-template-columns: 1.2fr 10px 1fr 10px 1fr;
+  place-items: center;
+} 
+
+.slash {
+  font-size: 13px;
+}
+
+.dateInput {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dateInput div {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.majorSelect > div {
+  border: none;
+  box-shadow: none;
+}
+
+#input {
+  padding: 10px 15px;
+  outline: none;
+  border: none;
+  color: rgb(88, 88, 88);
+  border-radius: 8px;
+}
+
+.btn {
+  width: 50%;
+  height: 110px;
+  padding: 30px 0;
+}
+
+.empty {
+  display: none;
+}
+
+/* Mobile design */
+
+@media screen and (max-width: 575px) {
+  .header {
+    margin: 50px 0;
+  }
+
+  .input {
+    width: 100%;
+    height: 55px;
+  }
+
+  #input {
+    font-size: 17px;
+  }
+
+  .empty {
+    display: block;
+    height: 130px;
+  }
+
+  .slash {
+    font-size: 15px;
+  }
+}
