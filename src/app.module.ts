@@ -6,6 +6,7 @@ import { ConfigModule } from './config/config.module';
 import { ClubModule } from './club/club.module';
 import { UserModule } from './user/user.module';
 import { AffiliationModule } from './affiliation/affiliation.module';
+import { ScheduleModule } from './schedule/schedule.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { AffiliationModule } from './affiliation/affiliation.module';
     ClubModule,
     UserModule,
     AffiliationModule,
+    ScheduleModule,
   ],
 })
 export class AppModule {}

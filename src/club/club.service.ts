@@ -9,12 +9,21 @@ import ClubsEntity from 'src/entities/club.entity';
 import { Like, Repository } from 'typeorm';
 import { CreateClubDto } from './dto/create-club.dto';
 import { UpdateClubDto } from './dto/update-club.dto';
+import { Response } from 'express';
+import * as fs from 'fs';
+import { join } from 'path';
+import UsersEntity from 'src/entities/user.entity';
+import AffiliationEntity from 'src/entities/affiliation.entity';
 
 @Injectable()
 export class ClubService {
   constructor(
     @InjectRepository(ClubsEntity)
     private clubRepository: Repository<ClubsEntity>,
+    @InjectRepository(UsersEntity)
+    private userRepository: Repository<UsersEntity>,
+    @InjectRepository(AffiliationEntity)
+    private affiliationRepository: Repository<AffiliationEntity>,
   ) {}
 
   async getClub(id: string) {
@@ -83,7 +92,25 @@ export class ClubService {
     clubEntity.st_date = null;
     clubEntity.end_date = null;
 
+    const master = await this.userRepository.findOne({
+      where: { user_name: clubEntity.club_master },
+    });
+
+    if (!master) {
+      throw new BadRequestException('not exist user');
+    }
+
     await this.clubRepository.save(clubEntity);
+
+    const clubs = await this.clubRepository.findOne({
+      where: { club_name },
+    });
+
+    console.log(master, clubs);
+    const affiliationEntity = new AffiliationEntity();
+    affiliationEntity.club_id = clubs.club_id;
+    affiliationEntity.user_id = master.user_id;
+    await this.affiliationRepository.save(affiliationEntity);
 
     return { success: true };
   }
@@ -101,6 +128,7 @@ export class ClubService {
   }
 
   async updateClub(club_id: string, updateData: UpdateClubDto) {
+    console.log('sd');
     const find = await this.clubRepository.findOne({
       where: { club_id },
     });
@@ -112,5 +140,23 @@ export class ClubService {
     Object.assign(find, updateData);
 
     await this.clubRepository.save(find);
+
+    return { success: true };
+  }
+
+  async getClubImg(clubId: string, res: Response) {
+    const club = await this.clubRepository.findOne({
+      where: { club_id: clubId },
+    });
+
+    if (!club || !club.club_poster) {
+      res.status(404).send('Club image not found');
+      return;
+    }
+
+    const imagePath = join(__dirname, '..', club.club_poster);
+
+    res.setHeader('Content-Type', 'image/jpeg');
+    fs.createReadStream(imagePath).pipe(res);
   }
 }

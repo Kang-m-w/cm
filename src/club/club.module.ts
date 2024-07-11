@@ -6,13 +6,17 @@ import ClubsEntity from 'src/entities/club.entity';
 import { JwtStrategy } from 'src/strategies/jwt.strategy';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from 'src/auth/auth.module';
+import UsersEntity from 'src/entities/user.entity';
+import { AffiliationModule } from 'src/affiliation/affiliation.module';
+import AffiliationEntity from 'src/entities/affiliation.entity';
 
 @Module({
   imports: [
     MulterModule.register({
       dest: './upload',
     }),
-    TypeOrmModule.forFeature([ClubsEntity]),
+    TypeOrmModule.forFeature([ClubsEntity, UsersEntity, AffiliationEntity]),
+    AffiliationModule,
     AuthModule,
   ],
   providers: [ClubService, JwtStrategy],

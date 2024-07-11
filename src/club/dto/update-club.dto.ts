@@ -1,11 +1,11 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateClubDto } from './create-club.dto';
-import { IsDateString } from 'class-validator';
+import { IsNotEmpty } from 'class-validator';
 
 export class UpdateClubDto extends PartialType(CreateClubDto) {
-  @IsDateString()
+  @IsNotEmpty()
   st_date: Date | string | null;
 
-  @IsDateString()
+  @IsNotEmpty()
   end_date: Date | string | null;
 }

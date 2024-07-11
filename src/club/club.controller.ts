@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Res,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -17,12 +18,13 @@ import { CreateClubDto } from './dto/create-club.dto';
 import { UpdateClubDto } from './dto/update-club.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { Response } from 'express';
 
 @Controller('club')
 export class ClubController {
   constructor(private readonly clubService: ClubService) {}
 
-  @Get()
+  @Get('/search')
   searchClub(@Query('search') search: string) {
     return this.clubService.searchClub(search);
   }
@@ -46,7 +48,7 @@ export class ClubController {
     FileInterceptor('club_poster', {
       storage: diskStorage({
         destination: (req, file, cb) => {
-          cb(null, 'upload/'); // 파일 저장 경로 지정
+          cb(null, '../back-end/dist/upload/'); // 파일 저장 경로 지정
         },
         filename: (req, file, cb) => {
           cb(null, `${Date.now()}-${file.originalname}`); // 파일 이름 지정
@@ -70,8 +72,15 @@ export class ClubController {
     this.clubService.deleteClub(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch('/:id')
   updateClub(@Param('id') id: string, @Body() updateClubData: UpdateClubDto) {
     return this.clubService.updateClub(id, updateClubData);
+  }
+
+  @Get('/img/:id')
+  getClubImg(@Param('id') id: string, @Res() res: Response) {
+    const data = this.clubService.getClubImg(id, res);
+    return data;
   }
 }

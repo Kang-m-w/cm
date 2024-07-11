@@ -87,4 +87,23 @@ export class AuthService {
 
     return null;
   }
+
+  checkIdValid(id: string) {
+    const find = this.userRepository.find({
+      where: { user_id: id },
+    });
+
+    if (find) {
+      return false;
+    }
+
+    return true;
+  }
+
+  getUserId(req: Request) {
+    const token = this.getToken(req);
+    const verify = this.validateToken(token);
+    const { id } = verify;
+    return id;
+  }
 }
