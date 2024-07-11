@@ -4,8 +4,8 @@ import { Header } from "../../components/header/Header";
 import { Input } from "../../components/form/Input";
 import { Button } from "../../components/button/Button";
 import { createClub } from "../../util/api/clubApi";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { notifyError, notifySuccess } from "../../util/utils";
 
 export const AddClub = () => {
   const navigate = useNavigate();
@@ -17,8 +17,38 @@ export const AddClub = () => {
   const [clubPoster, setClubPoster] = useState<any>();
 
   const submit = () => {
+    if (!clubType) {
+      notifyError("동아리 종류를 선택하세요");
+      return;
+    }
+
+    if (!clubName) {
+      notifyError("동아리 이름을 입력하세요");
+      return;
+    }
+
+    if (!clubTeather) {
+      notifyError("담당 선생님의 성함을 입력하세요");
+      return;
+    }
+
+    if (!clubMaster) {
+      notifyError("부장 이름을 입력하세요");
+      return;
+    }
+
+    if (!clubDesc) {
+      notifyError("동아리 설명을 입력하세요");
+      return;
+    }
+
+    if (!clubPoster) {
+      notifyError("동아리 포스터를 선택하세요");
+      return;
+    }
+
     let formData = new FormData();
-    formData.append("club_name", clubName!);
+    formData.append("club_name", clubName);
     formData.append("club_master", clubMaster!);
     formData.append("classification", clubType!);
     formData.append("club_poster", clubPoster!);
@@ -26,18 +56,8 @@ export const AddClub = () => {
     formData.append("teacher", clubTeather!);
 
     createClub(formData).then((res) => {
-      notifySuccess('동아리를 추가하였습니다')
-      navigate('/');
-    })
-  };
-
-  const notifySuccess = (txt: string) => {
-    toast.success(txt, {
-      autoClose: 1500,
-      position: "top-center",
-      hideProgressBar: true,
-      pauseOnHover: false,
-      theme: "colored",
+      notifySuccess("동아리를 추가하였습니다");
+      navigate("/");
     });
   };
 
@@ -101,6 +121,7 @@ export const AddClub = () => {
           </div>
         </div>
       </div>
+      <div className={styles.empty} />
     </div>
   );
 };

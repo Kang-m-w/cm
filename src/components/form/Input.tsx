@@ -6,11 +6,13 @@ export const Input = (props: {
   label: string;
   id: string;
   setEnter: any;
+  value?: string;
 }) => {
   return (
     <div className={styles.input}>
       <label>{props.label}</label>
       <input
+        defaultValue={props.value}
         type={props.type}
         id={props.id}
         onChange={(e) => {

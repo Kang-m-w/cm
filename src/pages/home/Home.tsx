@@ -27,7 +27,7 @@ export const Home = () => {
       desc: getBannerImg(2),
     },
     {
-      desc: "https://cdn.travie.com/news/photo/first/201611/img_19431_1.jpg",
+      desc: getBannerImg(3),
     },
   ];
   const OPTIONS: EmblaOptionsType = { align: "center", loop: true };
@@ -54,15 +54,15 @@ export const Home = () => {
       <div className={styles.navwrap}>
         <div className={styles.navItem}>
           <FontAwesomeIcon icon={faFlagCheckered} />
-          <span>동아리 추가</span>
+          <span onClick={() => navigate('/add')}>동아리 추가</span>
         </div>
         <div className={styles.navItem}>
           <FontAwesomeIcon icon={faCalendar} />
-          <span>동아리 일정</span>
+          <span onClick={() => navigate('/mypage')}>동아리 일정</span>
         </div>
         <div className={styles.navItem}>
           <FontAwesomeIcon icon={faMagnifyingGlass} />
-          <span>동아리 검색</span>
+          <span onClick={() => navigate('/list')}>동아리 검색</span>
         </div>
       </div>
       <div className={styles.list}>

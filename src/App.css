@@ -51,6 +51,11 @@
   color: #ffffff !important;
 }
 
+.availableId {
+  background-color: rgb(231, 231, 231) !important;
+  color: rgb(119, 119, 119) !important;
+}
+
 /* Mobile design */
 
 @media screen and (max-width: 575px) {

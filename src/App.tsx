@@ -13,6 +13,8 @@ import { clubListAtom } from "./store/atom";
 import { Club } from "./pages/club/Club";
 import { AddClub } from "./pages/addClub/AddClub";
 import { ModifyClub } from "./pages/modifyClub/ModifyClub";
+import { AddSchedule } from "./pages/addSchedule/AddSchedule";
+import { MyClub } from "./pages/club/MyClub";
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,8 +44,10 @@ export const App = () => {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/club/:id" element={<Club />} />
+          <Route path="/myclub/:id" element={<MyClub />} />
           <Route path="/add" element={<AddClub />} />
           <Route path="/modify/:id" element={<ModifyClub />} />
+          <Route path="/schedule/add/:id" element={<AddSchedule />} />
         </Routes>
       </div>
       <Nav />

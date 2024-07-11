@@ -21,3 +21,19 @@ export const getMy = async () => {
 
   return res;
 };
+
+export const getMyId = async () => {
+  const res = await axios.get(`/api/auth/getid`, {
+    headers: {
+      Authorization: `${getCookie("Authorization")}`,
+    },
+  });
+
+  return res;
+};
+
+export const checkValidId = async (id: string) => {
+  const res = await axios.post(`/api/auth/checkid/${id}`);
+  
+  return res;
+}

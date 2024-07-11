@@ -50,13 +50,13 @@
 }
 
 .btn {
-  width: 50px;
-  height: 40px;
+  width: 130px;
+  height: 50px;
 }
 
 .btn > * {
   border-radius: 15px;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .switch {
@@ -121,4 +121,23 @@
 .date span {
   font-size: 23px;
   font-weight: 800;
+}
+
+.desc {
+  width: 265px !important;
+  height: 200px !important;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.desc textarea {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 3px;
+  min-height: 150px;
+  margin-top: 10px;
+  outline: none;
+  border: 2px solid rgb(126, 126, 126);
+  resize: none;
 }

@@ -8,10 +8,10 @@ import styles from "./Login.module.css";
 import { login } from "../../util/api/userApi";
 import { setCookie } from "../../util/cookie";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { notifyError, notifySuccess } from "../../util/utils";
 
 export const Login = () => {
   const [isOpen, setIsOpen] = useRecoilState(toggleLoginModalState);
@@ -34,16 +34,6 @@ export const Login = () => {
     },
   };
 
-  const notifyError = (txt: string) => {
-    toast.error(txt, {
-      autoClose: 1500,
-      position: "top-center",
-      hideProgressBar: true,
-      pauseOnHover: false,
-      theme: "colored",
-    });
-  };
-
   const submit = () => {
     if (!idRef.current?.value) {
       notifyError("아이디를 입력해 주세요");
@@ -61,6 +51,7 @@ export const Login = () => {
     })
       .then((res) => {
         setCookie("Authorization", `${res.token}`, {path: '/'});
+        notifySuccess("로그인에 성공하였습니다");
         navigate("/");
       })
       .catch((_err) => {

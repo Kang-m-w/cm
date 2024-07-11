@@ -20,7 +20,7 @@ export const MyClubItem = (props: { item: AffiType }) => {
   }, [props.item]);
 
   const toggleBox = () => {
-    navigate(`/club/${props.item.club_id}`);
+    navigate(`/myclub/${props.item.club_id}`);
   }  
 
   return (

@@ -49,10 +49,17 @@
   height: 100%;
   margin-top: 30px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
 }
 
 .btnWrap {
   width: 250px;
   height: 50px;
+}
+
+.empty {
+  width: 100%;
+  height: 150px;
 }

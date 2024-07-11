@@ -7,7 +7,7 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { useRecoilValue } from "recoil";
 import { clubListAtom } from "../../store/atom";
 import { ClubType } from "../../types/clubType";
-import { getClubListByTag } from "../../util/api/clubApi";
+import { getClubListByTag, searchClub } from "../../util/api/clubApi";
 
 export const List = () => {
   const [isActive, setIsActive] = useState<string>("");
@@ -40,12 +40,19 @@ export const List = () => {
     }
   }, [isActive]);
 
+  const searchingClub = (e: any) => {
+    searchClub(e.target.value).then((res) => {
+      setClubList(res);
+    })
+    toggleTag("");
+  }
+
   return (
     <div className={styles.inner}>
       <Header txt="동아리 목록" align="center" />
       <div className={styles.search}>
         <div className={styles.bar}>
-          <input type="text" placeholder="검색어 입력 .." />
+          <input type="text" placeholder="검색어 입력 .." onChange={(e) => {searchingClub(e)}} />
           <div className={styles.searchIcon}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </div>

@@ -18,6 +18,7 @@ export const MyPage = () => {
   return (
     <div className={styles.inner}>
       {isLogin ? <Authentication /> : <NotLogin />}
+      <div className={styles.empty} />
     </div>
   );
 };

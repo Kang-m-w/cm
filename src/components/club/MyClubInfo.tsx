@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./ClubInfo.module.css";
 import { ClubType } from "../../types/clubType";
 import { Button } from "../button/Button";
-import { dateFormat, notifyError, notifySuccess } from "../../util/utils";
-import { joinClub } from "../../util/api/clubApi";
-import { getMyId } from "../../util/api/userApi";
+import { dateFormat } from "../../util/utils";
+import { useNavigate } from "react-router-dom";
 
-export const ClubInfo = (props: { data: ClubType | undefined }) => {
+export const MyClubInfo = (props: { data: ClubType | undefined }) => {
+  const navigate = useNavigate();
   const [recruitment, setRecruitment] = useState({
     flag: false,
     stdate: "",
@@ -23,25 +23,8 @@ export const ClubInfo = (props: { data: ClubType | undefined }) => {
     }
   }, []);
 
-  const requireJoinClub = async () => {
-    let myId = "";
-    await getMyId()
-      .then((res) => {
-        myId = res.data;
-      })
-      .catch((err) => {});
-
-    if (recruitment.flag) {
-      joinClub(myId, props.data!.club_id)
-        .then((res) => {
-          notifySuccess("신청에 성공하였습니다");
-        })
-        .catch((err) => {
-          notifyError("이미 가입되어있습니다");
-        });
-    } else {
-      notifyError("신청 기간이 아닙니다");
-    }
+  const modify = () => {
+    navigate(`/modify/${props.data?.club_id}`);
   };
 
   return (
@@ -76,11 +59,7 @@ export const ClubInfo = (props: { data: ClubType | undefined }) => {
       </div>
       <div className={styles.btn}>
         <div className={styles.btnWrap}>
-          <Button
-            txt="가입신청"
-            onClick={requireJoinClub}
-            extra_class={recruitment.flag ? "" : "recruit"}
-          />
+          <Button txt="수정하기" onClick={modify} />
         </div>
       </div>
       <div className={styles.empty} />

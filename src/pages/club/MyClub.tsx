@@ -3,10 +3,10 @@ import styles from "./Club.module.css";
 import { useParams } from "react-router-dom";
 import { getClubById } from "../../util/api/clubApi";
 import { ClubType } from "../../types/clubType";
-import { ClubInfo } from "../../components/club/ClubInfo";
 import { ClubSchedule } from "../../components/club/ClubSchedule";
+import { MyClubInfo } from "../../components/club/MyClubInfo";
 
-export const Club = () => {
+export const MyClub = () => {
   const { id } = useParams();
   const [data, setData] = useState<ClubType>();
   const [loading, setLoading] = useState(true);
@@ -50,7 +50,7 @@ export const Club = () => {
         </div>
       </div>
       <div className={styles.inner}>
-        {page === "info" ? <ClubInfo data={data} /> : <ClubSchedule clubId={data!.club_id} />}
+        {page === "info" ? <MyClubInfo data={data} /> : <ClubSchedule clubId={data!.club_id} />}
       </div>
     </div>
   );

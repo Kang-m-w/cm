@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ClubItem.module.css";
 import { ClubType } from "../../types/clubType";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { dateFormat } from "../../util/utils";
+import { dateFormat, notifyError, notifySuccess } from "../../util/utils";
+import { joinClub } from "../../util/api/clubApi";
+import { getMyId } from "../../util/api/userApi";
 
 export const ClubItem = (props: { item: ClubType }) => {
   const navigate = useNavigate();
@@ -13,10 +14,13 @@ export const ClubItem = (props: { item: ClubType }) => {
     end_date: "",
     flag: false,
   });
-
   useEffect(() => {
     setClubTag(props.item.classification === "free" ? "자율" : "전공");
-    if (props.item.st_date && props.item.end_date) {
+    if (
+      props.item.st_date ||
+      props.item.end_date ||
+      new Date(props.item!.end_date).getTime() >= new Date().getTime()
+    ) {
       setRecruit({
         st_date: props.item.st_date.toString(),
         end_date: props.item.end_date.toString(),
@@ -29,22 +33,26 @@ export const ClubItem = (props: { item: ClubType }) => {
         flag: false,
       });
     }
-  }, [props.item]);
+  }, [props.item, props.item.st_date, props.item.end_date]);
 
-  const notifyError = (txt: string) => {
-    toast.error(txt, {
-      autoClose: 1500,
-      position: "top-center",
-      hideProgressBar: true,
-      pauseOnHover: false,
-      theme: "colored",
-    });
-  };
-
-  const requireJoinClub = (e: React.MouseEvent) => {
+  const requireJoinClub = async (e: React.MouseEvent) => {
     e.stopPropagation();
+
+    let myId = "";
+    await getMyId()
+      .then((res) => {
+        myId = res.data;
+      })
+      .catch((err) => {});
+
     if (recruit.flag) {
-      alert("Hello");
+      joinClub(myId, props.item!.club_id)
+        .then((res) => {
+          notifySuccess("신청에 성공하였습니다");
+        })
+        .catch((err) => {
+          notifyError("이미 가입되어있습니다");
+        });
     } else {
       notifyError("신청 기간이 아닙니다");
     }
@@ -56,7 +64,12 @@ export const ClubItem = (props: { item: ClubType }) => {
 
   return (
     <div className={styles.container} onClick={viewClub}>
-      <div className={styles.poster} />
+      <div
+        className={styles.poster}
+        style={{
+          backgroundImage: `url(/api/club/img/${props.item.club_id})`,
+        }}
+      />
       <div className={styles.content}>
         <div id={styles.header}>
           <span id={styles.title}>{props.item.club_name}</span>

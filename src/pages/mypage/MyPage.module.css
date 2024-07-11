@@ -176,6 +176,10 @@
   gap: 10px;
 }
 
+.empty {
+  height: 200px;
+}
+
 /*mobile design*/
 
 @media screen and (max-width: 575px) {

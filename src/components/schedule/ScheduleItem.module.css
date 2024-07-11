@@ -1,0 +1,35 @@
+.container {
+  width: 350px;
+  height: 80px;
+  display: grid;
+  grid-template-columns: 100px auto;
+  gap: 10px;
+  box-shadow: 0 0 6px 2px #c5c4c3;
+  border-radius: 10px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.area {
+  font-size: 14px;
+}
+
+.desc {
+  font-size: 15px;
+}
+

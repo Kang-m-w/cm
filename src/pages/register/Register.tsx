@@ -7,10 +7,10 @@ import { faEye, faEyeSlash, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Header } from "../../components/header/Header";
 import { Button } from "../../components/button/Button";
-import { createUser } from "../../util/api/userApi";
-import { toast } from "react-toastify";
+import { checkValidId, createUser } from "../../util/api/userApi";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import { notifyError, notifySuccess } from "../../util/utils";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -19,6 +19,7 @@ export const Register = () => {
   const [selectedMonth, setSelectedMonth] = useState<string>("");
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [isOpen, setIsOpen] = useRecoilState(toggleSignModalState);
+  const [availableId, setAvailableId] = useState(false);
   const options = {
     style: {
       width: "400px",
@@ -89,16 +90,6 @@ export const Register = () => {
         fontSize: "13px",
       };
     },
-  };
-
-  const notifyError = (txt: string) => {
-    toast.error(txt, {
-      autoClose: 1500,
-      position: "top-center",
-      hideProgressBar: true,
-      pauseOnHover: false,
-      theme: "colored",
-    });
   };
 
   const chageEye = (num: number) => {
@@ -183,6 +174,11 @@ export const Register = () => {
       return;
     }
 
+    if (!availableId) {
+      notifyError("아이디 중복 검사를 해주세요");
+      return;
+    }
+
     if (!pwRef.current?.value) {
       notifyError("비밀번호를 입력해 주세요");
       return;
@@ -230,12 +226,38 @@ export const Register = () => {
       major: selectedMajor,
     })
       .then((res) => {
+        notifySuccess("회원가입에 성공하였습니다");
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  const checkValid = () => {
+    if (!idRef.current?.value) {
+      notifyError("아이디를 입력해주세요");
+      return;
+    }
+    checkValidId(idRef.current.value)
+      .then((res) => {
+        if (res.data) {
+          notifySuccess("사용가능한 아이디입니다");
+        } else {
+          notifyError("이미 사용 중인 아이디입니다");
+        }
+        setAvailableId(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (availableId) {
+      idRef.current!.readOnly = availableId;
+    }
+  }, [availableId])
 
   return (
     <Modal init={options} isOpen={isOpen} setIsOpen={setIsOpen}>
@@ -275,10 +297,11 @@ export const Register = () => {
                 placeholder="아이디 입력"
                 id={styles.input}
                 ref={idRef}
+                className={availableId ? 'availableId' : ''}
               />
             </div>
             <div className={styles.duplication}>
-              <button>중복 확인</button>
+              <button className={availableId ? 'availableId' : ''} onClick={availableId ? () => {} : checkValid}>중복 확인</button>
             </div>
           </div>
           <div className={styles.placeholder}>
