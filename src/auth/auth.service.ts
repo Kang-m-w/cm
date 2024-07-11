@@ -88,15 +88,14 @@ export class AuthService {
     return null;
   }
 
-  checkIdValid(id: string) {
-    const find = this.userRepository.find({
+  async checkIdValid(id: string) {
+    const find = await this.userRepository.findOne({
       where: { user_id: id },
     });
 
     if (find) {
       return false;
     }
-
     return true;
   }
 
